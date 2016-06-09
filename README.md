@@ -1,9 +1,9 @@
 # Install
 
-mkdir parking
-cd parking
-git clone git@github.com:drobazko/parking.git
-rails s
+# mkdir parking
+# cd parking
+# git clone git@github.com:drobazko/parking.git
+# rails s
 
 
 
