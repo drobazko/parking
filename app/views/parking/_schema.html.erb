@@ -1,20 +1,5 @@
 <div class="col-md-12">
-  <div style="clear: both;">
-    <% @parking.places_by_type(:sedan).each do |place| %>
-      <div class="place">sedan</div>
-    <% end %>
-  </div>
-  
-  <div style="clear: both;">
-    <% @parking.places_by_type(:disabled).each do |place| %>
-      <div class="place">disabled</div>
-    <% end %>
-  </div>
-  
-  <div style="clear: both;">
-    <% @parking.places_by_type(:truck).each do |place| %>
-      <div class="place">truck</div>
-    <% end %>
-  </div>
-
+  <%= show_schema(@parking, :sedan) %>
+  <%= show_schema(@parking, :disabled) %>
+  <%= show_schema(@parking, :truck) %>
 </div>

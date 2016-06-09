@@ -1,14 +1,14 @@
 class ParkingHandler
-  attr_accessor :places
+  attr_reader :places
 
-  def initialize(args)
-    @places = [] 
-    @places += Array.new(args[:sedan_number]) { ParkingPlaceForSedan.new }
-    @places += Array.new(args[:disabled_number]) { ParkingPlaceForDisabled.new }
-    @places += Array.new(args[:truck_number]) { ParkingPlaceForTruck.new }
+  DEFAULT_QUANTITY = { sedan_number: 5, disabled_number: 3, truck_number: 2 }
+  TYPES = [:sedan, :disabled, :truck]
+
+  def initialize(args = {})
+    @places = TYPES.map{|t| Array.new(args["#{t}_number".to_sym] || DEFAULT_QUANTITY["#{t}_number".to_sym]) { eval("ParkingPlaceFor#{t.to_s.capitalize}.new") } }.flatten
   end
 
-  def park(car)
+  def park!(car)
     index = free_place_index(car)
     raise 'No free parking places for your car found' unless index
     @places[index].park(car)
@@ -19,7 +19,19 @@ class ParkingHandler
   end
 
   def places_by_type(type)
-    @places.select{|p| p.type == type}
+    @places.each_with_index.map{|p, i| {index: i, place: p}}.select{|p| p[:place].type == type}
+  end
+
+  def free_place_by_index!(number)
+    @places[number].free!
+  end
+
+  class << self
+    def random_init
+      parking = ParkingHandler.new
+      (1..DEFAULT_QUANTITY.values.sum).each{ |i| parking.park!(Car.create(TYPES[rand(0..2)])) rescue 'Error' }
+      parking
+    end
   end
 
   private

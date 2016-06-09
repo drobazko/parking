@@ -2,6 +2,9 @@ Rails.application.routes.draw do
   root 'parking#index'
 
   post 'fill' => 'parking#fill', as: :fill
+  post 'park_car' => 'parking#park_car', as: :park_car
+  get 'free' => 'parking#free', as: :free
+  get 'random' => 'parking#random', as: :random
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

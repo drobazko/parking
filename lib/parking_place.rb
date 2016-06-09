@@ -1,5 +1,5 @@
 class ParkingPlace
-  attr_reader :type
+  attr_reader :type, :car
 
   def park(car)
     @car = car
@@ -7,6 +7,10 @@ class ParkingPlace
 
   def free?
     @car.nil?
+  end
+
+  def free!
+    @car = nil
   end
 
   def free_for?(car)

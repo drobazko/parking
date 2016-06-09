@@ -4,4 +4,10 @@ class Car
   def initialize(type)
     @type = type
   end
+
+  class << self
+    def create(type)
+      Car.new(type)
+    end
+  end
 end
